@@ -2,6 +2,7 @@
 const express = require('express');
 const axios = require('axios');
 const Joi = require('joi');
+const config = require('secrets')
 
 const app = express();
 
@@ -15,8 +16,6 @@ const discordID = {
     "Ham God": "<@161595897682067456>",
 }
 
-const discordBot = 'https://discordapp.com/api/webhooks/552341774543093760/3b-H1V3shNytfN6yDR12a6tulo7O2OaPQ-7hM8cOET19uoV5L7ccuhFIij-HqOXOkGdZ'
-
 app.post('/sendmsg', (req, res) => {
 
     const { error } = validateRequest(req.body); // Destructuring the error object
@@ -29,7 +28,7 @@ app.post('/sendmsg', (req, res) => {
 
     const msg = `Sup ${discordTag}, it's time to take your turn #${turn} in ${gameName}!`;
 
-    axios.post(discordBot, { content: msg }) // Send a POST request to the Discord server in the proper format
+    axios.post(config.discordBotLink, { content: msg }) // Send a POST request to the Discord server in the proper format
 
     res.send(`{ content: "${msg}" }`);
 })
