@@ -2,7 +2,8 @@
 const express = require('express');
 const axios = require('axios');
 const Joi = require('joi');
-const config = require('secrets')
+const nodemailer = require('nodemailer');
+const config = require('./secrets');
 
 const app = express();
 
@@ -25,10 +26,35 @@ app.post('/sendmsg', (req, res) => {
     const playerName = req.body.value2;
     const turn = req.body.value3;
     const discordTag = discordID[playerName]; // Get Discord IDs from the discordID dictionary
+    const playerEmail = config[playerName]; // Get emails from the config file
 
     const msg = `Sup ${discordTag}, it's time to take your turn #${turn} in ${gameName}!`;
 
     axios.post(config.discordBotLink, { content: msg }) // Send a POST request to the Discord server in the proper format
+
+    // Send an email using nodemailer
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: config.email,
+            pass: config.password
+        }
+    });
+
+    var mailOptions = {
+        from: config.email,
+        to: playerEmail,
+        subject: `Turn #${turn} in ${gameName}`,
+        text: `Sup ${playerName}, it's time to take your turn #${turn} in ${gameName}!`
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
 
     res.send(`{ content: "${msg}" }`);
 })
