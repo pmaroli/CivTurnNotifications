@@ -22,10 +22,9 @@ var uiConfig = {
     },
     signInFlow: 'popup',
     credentialHelper: firebaseui.auth.CredentialHelper.NONE, // Disable the Account Chooser 
-    signInSuccessUrl: '/',
+    signInSuccessUrl: '/CivTurnNotifications',
     signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID
     ],
 };
 ui.start('#firebaseui-auth-container', uiConfig); // The start method will wait until the DOM is loaded.

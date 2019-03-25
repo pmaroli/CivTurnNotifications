@@ -9,14 +9,6 @@ const app = express();
 
 app.use(express.json()); // Use express.json middleware (content type: application/json)
 
-const discordID = {
-    syndragore: "<@149330458872643584>",
-    imag95: "<@279497304602574849>",
-    Kingraju: "<@457232849829888001>",
-    Chaosblader7: "<@308483214068940801>",
-    "Ham God": "<@161595897682067456>",
-}
-
 app.post('/sendmsg', (req, res) => {
 
     const { error } = validateRequest(req.body); // Destructuring the error object
