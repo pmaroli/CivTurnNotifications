@@ -34,12 +34,12 @@ const preferenceForm = document.querySelector('#preferenceForm');
 preferenceForm.addEventListener('submit', (e) => {
     e.preventDefault();
     var user = firebase.auth().currentUser;
-
+    
     db.collection('users').doc(user.uid).set({
         playerName: preferenceForm['playerName'].value,
         discordID: preferenceForm['discordID'].value,
         email: user.email,
-
+        
         discordNotifs: preferenceForm['discordNotifs'].checked,
         emailNotifs: preferenceForm['emailNotifs'].checked,
         smsNotifs: preferenceForm['smsNotifs'].checked
@@ -51,16 +51,18 @@ preferenceForm.addEventListener('submit', (e) => {
 
 
 // Sign out when the sign out button is clicked
-const signOut = document.querySelector('#signout');
-signOut.addEventListener('click', (e) => {
-    e.preventDefault(); //Prevent page from reloading
-
-    firebase.auth().signOut().then(function () {
-
-    }).catch(function (error) {
-        console.log(error)
+const signOut = document.querySelectorAll('#signout');
+signOut.forEach(item => { 
+    item.addEventListener('click', (e) => {
+        e.preventDefault(); //Prevent page from reloading
+        
+        firebase.auth().signOut().then(function () {
+            
+        }).catch(function (error) {
+            console.log(error)
+        });
     });
-});
+})
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {

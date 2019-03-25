@@ -26,16 +26,32 @@
         <div class="nav-wrapper blue darken-3">
             <div class="container">
                 
-                <a href="#" class="brand-logo">Civ Turn Notifications</a>
+                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="#" class="brand-logo hide-on-small-only">Civ Turn Notifications</a>
+                <a href="#" class="brand-logo hide-on-med-and-up">Notifications</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a id="login" class="modal-trigger logged-out" style="display:none" href="#signinModal">Login</a></li>
                     <li class="logged-in" style="display:none"> <span class="userGreeting" style="padding:0 15px;"></span> </li>
                     <li><a id="signout" class="logged-in" style="display:none" href="#">Sign Out</a></li>
                 </ul>
-                
+            
             </div>
         </div>
     </nav>
+
+    <ul id="slide-out" class="sidenav">
+        <li>
+            <div class="user-view">
+                <h5 class="userGreeting logged-in"></h5>
+                <h5 class="logged-out">Civ Turn Notifications</h5>
+            </div>
+        </li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a id="login" class="modal-trigger logged-out" href="#signinModal">Login</a></li>
+        <li><a id="signout" class="logged-in" style="display:none" href="#">Sign Out</a></li>
+    </ul>
 
     <div id="signinModal" class="modal">
         <div class="modal-content">

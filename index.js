@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems);
+    M.AutoInit();
 });
 
 const confirmUpdate = () => {
@@ -15,18 +14,15 @@ const confirmUpdate = () => {
 
 const loggedInLinks = document.querySelectorAll('.logged-in');
 const loggedOutLinks = document.querySelectorAll('.logged-out');
-const userGreeting = document.querySelector('.userGreeting');
+const userGreetings = document.querySelectorAll('.userGreeting');
 
 const setupUI = (user) => {
     if(user) {
         loggedInLinks.forEach( item => item.style.display = 'block' );
         loggedOutLinks.forEach(item => item.style.display = 'none');
-        // Display account details
-        var html1 = `
-            <span>Welcome, ${user.displayName}</span>
-        `;
-        
-        userGreeting.innerHTML = html1;
+        // Display account details        
+        userGreetings.forEach(item => item.innerHTML = `${user.displayName}`);
+
     } else {
         loggedInLinks.forEach(item => item.style.display = 'none');
         loggedOutLinks.forEach(item => item.style.display = 'block');
