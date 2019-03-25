@@ -1,73 +1,51 @@
-// { "value1":"[game name]", "value2":"[player name]", "value3":"[game turn number]" }
-const express = require('express');
-const axios = require('axios');
-const Joi = require('joi');
-const nodemailer = require('nodemailer');
-const config = require('./secrets');
+document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
+});
 
-const app = express();
-
-app.use(express.json()); // Use express.json middleware (content type: application/json)
-
-const discordID = {
-    syndragore: "<@149330458872643584>",
-    imag95: "<@279497304602574849>",
-    Kingraju: "<@457232849829888001>",
-    Chaosblader7: "<@308483214068940801>",
-    "Ham God": "<@161595897682067456>",
+const confirmUpdate = () => {
+    const updated = document.querySelector('#updated');
+    updated.innerHTML = 'Your preferences have been updated!'; // Give a confirmation that the preferences have been updated
+    // Make the message go away after some time
+    setTimeout( () => {
+        updated.innerHTML = ''
+    }, 3000);
 }
 
-app.post('/sendmsg', (req, res) => {
 
-    const { error } = validateRequest(req.body); // Destructuring the error object
-    if (error) { return res.status(400).send(error.details[0].message) }; // Set a bad request status
+const loggedInLinks = document.querySelectorAll('.logged-in');
+const loggedOutLinks = document.querySelectorAll('.logged-out');
+const userGreeting = document.querySelector('.userGreeting');
 
-    const gameName = req.body.value1;
-    const playerName = req.body.value2;
-    const turn = req.body.value3;
-    const discordTag = discordID[playerName]; // Get Discord IDs from the discordID dictionary
-    const playerEmail = config[playerName]; // Get emails from the config file
-
-    const msg = `Sup ${discordTag}, it's time to take your turn #${turn} in ${gameName}!`;
-
-    axios.post(config.discordBotLink, { content: msg }) // Send a POST request to the Discord server in the proper format
-
-    // Send an email using nodemailer
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: config.email,
-            pass: config.password
-        }
-    });
-
-    var mailOptions = {
-        from: config.email,
-        to: playerEmail,
-        subject: `Turn #${turn} in ${gameName}`,
-        text: `Sup ${playerName}, it's time to take your turn #${turn} in ${gameName}!`
-    };
-
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    });
-
-    res.send(`{ content: "${msg}" }`);
-})
-
-function validateRequest(request) {
-    const schema = Joi.object().keys({
-        value2: Joi.string().valid(Object.keys(discordID)).required(), //Only allow user names that are registered with discord tags
-        value1: Joi.string().required(),
-        value3: Joi.string().required()
-    })
-
-    return Joi.validate(request, schema)
+const setupUI = (user) => {
+    if(user) {
+        loggedInLinks.forEach( item => item.style.display = 'block' );
+        loggedOutLinks.forEach(item => item.style.display = 'none');
+        // Display account details
+        var html1 = `
+            <span>Welcome, ${user.displayName}</span>
+        `;
+        
+        userGreeting.innerHTML = html1;
+    } else {
+        loggedInLinks.forEach(item => item.style.display = 'none');
+        loggedOutLinks.forEach(item => item.style.display = 'block');
+        preferenceForm.reset(); // Clears the previous user's data when logging out
+    }
 }
 
-port = process.env.PORT || 3000;
-app.listen(port, () => { console.log(`Civ Discord server listening on port: ${port}`)});
+
+const updateForm = ( data ) => {
+
+    preferenceForm['email'].value = data.email;
+
+    if( data.playerName ) { // New users have not yet assigned a playerName, so their data will be empty until they submit information
+        preferenceForm['playerName'].value = data.playerName;
+        preferenceForm['discordID'].value = data.discordID;
+        preferenceForm['discordNotifs'].checked = data.discordNotifs;
+        preferenceForm['emailNotifs'].checked = data.emailNotifs;
+        preferenceForm['smsNotifs'].checked = data.smsNotifs;
+    }
+
+    M.updateTextFields(); // Updates the styling of the text fields so that the labels don't cover the data when it is present
+}
