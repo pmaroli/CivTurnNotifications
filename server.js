@@ -4,12 +4,19 @@ const axios = require('axios');
 const Joi = require('joi');
 const nodemailer = require('nodemailer');
 const config = require('./secrets');
+const path = require('path')
 
 const app = express();
 
 app.use(express.json()); // Use express.json middleware (content type: application/json)
 
-app.post('/sendmsg', (req, res) => {
+// Serve static files
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', (req, res) => {
+    res.render("index.html")
+});
+
+app.post('/api/sendmsg', (req, res) => {
 
     const { error } = validateRequest(req.body); // Destructuring the error object
     if (error) { return res.status(400).send(error.details[0].message) }; // Set a bad request status
