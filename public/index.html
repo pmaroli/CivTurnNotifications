@@ -7,6 +7,9 @@
     
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import Font-Awesome Icons-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
@@ -79,20 +82,24 @@
         <div class="logged-in" style="display:none">
             <form class="row center" id="preferenceForm">               
                 <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">person</i>
                     <input type="text" id="playerName" required>
-                    <label for="">Player Name</label>
+                    <label for="playerName">Player Name</label>
                 </div>
                 <div class="input-field col s12 l6">
+                    <i class="fab fa-discord prefix"></i>
                     <input type="text" id="discordID">
-                    <label for="">Discord Tag</label>
+                    <label for="discordID">Discord Tag</label>
                 </div>
                 <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">email</i>
                     <input disabled type="text" id="email">
-                    <label for="">Email</label>
+                    <label for="email">Email</label>
                 </div>
                 <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">phone</i>
                     <input type="tel" id="phone">
-                    <label for="">Phone</label>
+                    <label for="phone">Phone</label>
                 </div>
 
                 <div class="center-align col s12">
