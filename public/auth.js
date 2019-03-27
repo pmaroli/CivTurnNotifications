@@ -39,6 +39,7 @@ preferenceForm.addEventListener('submit', (e) => {
         playerName: preferenceForm['playerName'].value,
         discordID: preferenceForm['discordID'].value,
         email: user.email,
+        //phoneNumber: preferenceForm['phoneNumber'].value,
         
         discordNotifs: preferenceForm['discordNotifs'].checked,
         emailNotifs: preferenceForm['emailNotifs'].checked,
@@ -47,8 +48,6 @@ preferenceForm.addEventListener('submit', (e) => {
         confirmUpdate();
     })
 })
-
-
 
 // Sign out when the sign out button is clicked
 const signOut = document.querySelectorAll('#signout');

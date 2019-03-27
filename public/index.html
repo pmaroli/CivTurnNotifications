@@ -9,22 +9,22 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import Font-Awesome Icons-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
+    
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
     
     <title>Turn Notifications</title>
-
+    
     <style>
         nav { margin-bottom: 2em; }
     </style>
-
+    
 </head>
 <body>
-
+    
     <nav>
         <div class="nav-wrapper blue darken-3">
             <div class="container">
@@ -37,11 +37,11 @@
                     <li class="logged-in" style="display:none"> <span class="userGreeting" style="padding:0 15px;"></span> </li>
                     <li><a id="signout" class="logged-in" style="display:none" href="#">Sign Out</a></li>
                 </ul>
-            
+                
             </div>
         </div>
     </nav>
-
+    
     <ul id="slide-out" class="sidenav">
         <li>
             <div class="user-view">
@@ -55,95 +55,99 @@
         <li><a id="login" class="modal-trigger logged-out" href="#signinModal">Login</a></li>
         <li><a id="signout" class="logged-in" style="display:none" href="#">Sign Out</a></li>
     </ul>
-
+    
     <div id="signinModal" class="modal">
         <div class="modal-content">
             <!-- The surrounding HTML is left untouched by FirebaseUI.
-                            Your app may use that space for branding, controls and other customizations.-->
-            <h3 class="center">Select a sign in method</h3>
-            <div id="firebaseui-auth-container"></div>
-            <div id="loader">Loading...</div>
-        </div>
-    </div>
-    
-    <div id="accountModal" class="modal">
-        <div class="modal-content">
-            <h3 class="center">Account Details</h3>
-            <div class="account-details center-align"></div>
-        </div> 
-    </div>
-
-    <div class="container"> 
-
-        <div class="logged-out" style="display:none">
-            <h1 class="center-align">Please login to access your preferences</h1>
-        </div>
-
-        <div class="logged-in" style="display:none">
-            <form class="row center" id="preferenceForm">               
-                <div class="input-field col s12 l6">
-                    <i class="material-icons prefix">person</i>
-                    <input type="text" id="playerName" required>
-                    <label for="playerName">Player Name</label>
-                </div>
-                <div class="input-field col s12 l6">
-                    <i class="fab fa-discord prefix"></i>
-                    <input type="text" id="discordID">
-                    <label for="discordID">Discord Tag</label>
-                </div>
-                <div class="input-field col s12 l6">
-                    <i class="material-icons prefix">email</i>
-                    <input disabled type="text" id="email">
-                    <label for="email">Email</label>
-                </div>
-                <div class="input-field col s12 l6">
-                    <i class="material-icons prefix">phone</i>
-                    <input type="tel" id="phone">
-                    <label for="phone">Phone</label>
-                </div>
-
-                <div class="center-align col s12">
-
-                    <p class="">
-                        <label>
-                            <input type="checkbox" checked="checked" id="discordNotifs" class="checkbox-blue"/>
-                            <span>Discord Notifications</span>
-                        </label>
-                    </p>
-                    <p class="">
-                        <label>
-                            <input type="checkbox" checked="checked" id="emailNotifs"/>
-                            <span>Email Notifications</span>
-                        </label>
-                    </p>
-                    <p class="">
-                        <label>
-                            <input type="checkbox" checked="checked" id="smsNotifs"/>
-                            <span>SMS Notifications (Coming Soon)</span>
-                        </label>
-                    </p>
-
-                </div>
-                <button class="btn-large waves-effect waves-light blue darken-3" type="submit">Update Preferences</button>
-
-            </form>  
-
-            <div class="center-align logged-in" id="updated"/>
-
+                Your app may use that space for branding, controls and other customizations.-->
+                <h3 class="center">Select a sign in method</h3>
+                <div id="firebaseui-auth-container"></div>
+                <div id="loader">Loading...</div>
+            </div>
         </div>
         
+        <div id="accountModal" class="modal">
+            <div class="modal-content">
+                <h3 class="center">Account Details</h3>
+                <div class="account-details center-align"></div>
+            </div> 
+        </div>
+        
+        <div class="container"> 
+            
+            <div class="logged-out" style="display:none">
+                <h1 class="center-align">Please login to access your preferences</h1>
+            </div>
+            
+            <div class="logged-in" style="display:none">
+                <form class="row center" id="preferenceForm">               
+                    <div class="input-field col s12 l6">
+                        <i class="material-icons prefix">person</i>
+                        <input type="text" id="playerName" required>
+                        <label for="playerName">Player Name</label>
+                    </div>
+                    <div class="input-field col s12 l6">
+                        <i class="fab fa-discord prefix"></i>
+                        <input type="text" id="discordID" minlength="18" maxlength="18">
+                        <label for="discordID">Discord Tag</label>
+                        <span class="helper-text right-align">
+                            18 Digit
+                            <a target="_blank" rel="noopener noreferrer" href="https://support.discordapp.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-">Discord User ID</a>
+                        </span>
+                    </div>
+                    <div class="input-field col s12 l6">
+                        <i class="material-icons prefix">email</i>
+                        <input disabled type="text" id="email">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-field col s12 l6">
+                        <i class="material-icons prefix">phone</i>
+                        <input disabled type="tel" id="phoneNumber">
+                        <label for="phoneNumber">Phone</label>
+                    </div>
+                    
+                    <div class="center-align col s12">
+                        
+                        <p class="">
+                            <label>
+                                <input type="checkbox" checked="checked" id="discordNotifs" />
+                                <span>Discord Notifications</span>
+                            </label>
+                        </p>
+                        <p class="">
+                            <label>
+                                <input type="checkbox" checked="checked" id="emailNotifs"/>
+                                <span>Email Notifications</span>
+                            </label>
+                        </p>
+                        <p class="">
+                            <label>
+                                <input disabled type="checkbox" id="smsNotifs"/>
+                                <span>SMS Notifications (Coming Soon)</span>
+                            </label>
+                        </p>
+                        
+                    </div>
+                    <button class="btn-large waves-effect waves-light blue darken-3" type="submit">Update Preferences</button>
+                    
+                </form>  
+                
+                <div class="center-align logged-in" id="updated"/>
+                
+            </div>
+            
+        </div>
     </div>
-  
-    
+   
     <!-- Firebase App is always required and must be first -->
     <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-app.js"></script>
     <!-- Add additional services that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-firestore.js"></script>
-
+    
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+    
     <script src="auth.js"></script>
     <script src="index.js"></script>
 </body>

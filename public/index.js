@@ -38,6 +38,7 @@ const updateForm = ( data ) => {
     if( data.playerName ) { // New users have not yet assigned a playerName, so their data will be empty until they submit information
         preferenceForm['playerName'].value = data.playerName;
         preferenceForm['discordID'].value = data.discordID;
+        //preferenceForm['phone'].value = data.phoneNumber;
         preferenceForm['discordNotifs'].checked = data.discordNotifs;
         preferenceForm['emailNotifs'].checked = data.emailNotifs;
         preferenceForm['smsNotifs'].checked = data.smsNotifs;
