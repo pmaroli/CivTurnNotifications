@@ -41,7 +41,7 @@ app.post('/api/sendmsg', (req, res) => {
         snapshot.forEach(doc => {
 
             if ( doc.data().discordNotifs ) {
-                const msg = `Sup ${doc.data().discordID}, it's time to take your turn #${turn} in ${gameName}!`;
+                const msg = `Sup <@${doc.data().discordID}>, it's time to take your turn #${turn} in ${gameName}!`;
                 axios.post(process.env.discordBotLink, { content: msg }); // Send a POST request to the Discord server in the proper format
             }
 
