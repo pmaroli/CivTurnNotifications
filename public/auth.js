@@ -22,7 +22,7 @@ var uiConfig = {
     },
     signInFlow: 'popup',
     credentialHelper: firebaseui.auth.CredentialHelper.NONE, // Disable the Account Chooser 
-    signInSuccessUrl: '/CivTurnNotifications',
+    signInSuccessUrl: '/',
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID
     ],

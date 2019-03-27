@@ -3,7 +3,7 @@ const express = require('express');
 const axios = require('axios');
 const Joi = require('joi');
 const nodemailer = require('nodemailer');
-const config = require('./secrets');
+//const config = require('./secrets');
 const path = require('path')
 
 const app = express();
@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 app.post('/api/sendmsg', (req, res) => {
 
-    const { error } = validateRequest(req.body); // Destructuring the error object
+    /* const { error } = validateRequest(req.body); // Destructuring the error object
     if (error) { return res.status(400).send(error.details[0].message) }; // Set a bad request status
 
     const gameName = req.body.value1;
@@ -55,7 +55,8 @@ app.post('/api/sendmsg', (req, res) => {
         }
     });
 
-    res.send(`{ content: "${msg}" }`);
+    res.send(`{ content: "${msg}" }`); */
+    res.send('Your message has been received! -PM');
 })
 
 function validateRequest(request) {
