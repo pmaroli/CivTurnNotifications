@@ -34,13 +34,25 @@
                 <a href="#" class="brand-logo hide-on-med-and-up">Notifications</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a id="login" class="modal-trigger logged-out" style="display:none" href="#signinModal">Login</a></li>
-                    <li class="logged-in" style="display:none"> <span class="userGreeting" style="padding:0 15px;"></span> </li>
-                    <li><a id="signout" class="logged-in" style="display:none" href="#">Sign Out</a></li>
+                    <!-- Dropdown Trigger -->
+                    <li class="logged-in" style="display:none">
+                        <a class="dropdown-trigger" href="#" data-target="dropdown1">
+                            <span class="userGreeting"></span>
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
                 </ul>
                 
             </div>
         </div>
     </nav>
+    
+    <!-- Dropdown Structure -->
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#" id="signout" class="right-align black-text">Sign Out</a></li>
+        <li class="divider"></li>
+        <li><a href="#deleteAccountModal" class="right-align red-text modal-trigger">Delete Account</a></li>
+    </ul>
     
     <ul id="slide-out" class="sidenav">
         <li>
@@ -49,11 +61,10 @@
                 <h5 class="logged-out">Civ Turn Notifications</h5>
             </div>
         </li>
-        <li>
-            <div class="divider"></div>
-        </li>
+        <li><div class="divider" /></li>
         <li><a id="login" class="modal-trigger logged-out" href="#signinModal">Login</a></li>
         <li><a id="signout" class="logged-in" style="display:none" href="#">Sign Out</a></li>
+        <li><a class="logged-in red-text modal-trigger" style="display:none" href="#deleteAccountModal">Delete Account</a></li>
     </ul>
     
     <div id="signinModal" class="modal">
@@ -65,80 +76,81 @@
                 <div id="loader">Loading...</div>
             </div>
         </div>
-        
-        <div id="accountModal" class="modal">
-            <div class="modal-content">
-                <h3 class="center">Account Details</h3>
-                <div class="account-details center-align"></div>
-            </div> 
-        </div>
-        
-        <div class="container"> 
-            
-            <div class="logged-out" style="display:none">
-                <h1 class="center-align">Please login to access your preferences</h1>
-            </div>
-            
-            <div class="logged-in" style="display:none">
-                <form class="row center" id="preferenceForm">               
-                    <div class="input-field col s12 l6">
-                        <i class="material-icons prefix">person</i>
-                        <input type="text" id="playerName" required>
-                        <label for="playerName">Player Name</label>
-                    </div>
-                    <div class="input-field col s12 l6">
-                        <i class="fab fa-discord prefix"></i>
-                        <input type="text" id="discordID" minlength="18" maxlength="18">
-                        <label for="discordID">Discord Tag</label>
-                        <span class="helper-text right-align">
-                            18 Digit
-                            <a target="_blank" rel="noopener noreferrer" href="https://support.discordapp.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-">Discord User ID</a>
-                        </span>
-                    </div>
-                    <div class="input-field col s12 l6">
-                        <i class="material-icons prefix">email</i>
-                        <input disabled type="text" id="email">
-                        <label for="email">Email</label>
-                    </div>
-                    <div class="input-field col s12 l6">
-                        <i class="material-icons prefix">phone</i>
-                        <input disabled type="tel" id="phoneNumber">
-                        <label for="phoneNumber">Phone</label>
-                    </div>
-                    
-                    <div class="center-align col s12">
-                        
-                        <p class="">
-                            <label>
-                                <input type="checkbox" checked="checked" id="discordNotifs" />
-                                <span>Discord Notifications</span>
-                            </label>
-                        </p>
-                        <p class="">
-                            <label>
-                                <input type="checkbox" checked="checked" id="emailNotifs"/>
-                                <span>Email Notifications</span>
-                            </label>
-                        </p>
-                        <p class="">
-                            <label>
-                                <input disabled type="checkbox" id="smsNotifs"/>
-                                <span>SMS Notifications (Coming Soon)</span>
-                            </label>
-                        </p>
-                        
-                    </div>
-                    <button class="btn-large waves-effect waves-light blue darken-3" type="submit">Update Preferences</button>
-                    
-                </form>  
-                
-                <div class="center-align logged-in" id="updated"/>
-                
-            </div>
-            
-        </div>
     </div>
-   
+    
+    <div id="deleteAccountModal" class="modal">
+        <div class="modal-content center">
+            <h3 class="">Are you sure?</h3>
+            <p class="red-text" id="deleteError"></p>
+            <button id="deleteUser" class="btn waves-effect waves-light red">Delete Account</button>
+        </div> 
+    </div>
+    
+    <div class="container"> 
+        
+        <div class="logged-out" style="display:none">
+            <h1 class="center-align">Please login to access your preferences</h1>
+        </div>
+        
+        <div class="logged-in" style="display:none">
+            <form class="row center" id="preferenceForm">               
+                <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">person</i>
+                    <input type="text" id="playerName" required>
+                    <label for="playerName">Player Name</label>
+                </div>
+                <div class="input-field col s12 l6">
+                    <i class="fab fa-discord prefix"></i>
+                    <input type="text" id="discordID" minlength="18" maxlength="18">
+                    <label for="discordID">Discord Tag</label>
+                    <span class="helper-text right-align">
+                        18 Digit
+                        <a target="_blank" rel="noopener noreferrer" href="https://support.discordapp.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-">Discord User ID</a>
+                    </span>
+                </div>
+                <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">email</i>
+                    <input disabled type="text" id="email">
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">phone</i>
+                    <input disabled type="tel" id="phoneNumber">
+                    <label for="phoneNumber">Phone</label>
+                </div>
+                
+                <div class="center-align col s12">
+                    
+                    <p class="">
+                        <label>
+                            <input type="checkbox" checked="checked" id="discordNotifs" />
+                            <span>Discord Notifications</span>
+                        </label>
+                    </p>
+                    <p class="">
+                        <label>
+                            <input type="checkbox" checked="checked" id="emailNotifs"/>
+                            <span>Email Notifications</span>
+                        </label>
+                    </p>
+                    <p class="">
+                        <label>
+                            <input disabled type="checkbox" id="smsNotifs"/>
+                            <span>SMS Notifications (Coming Soon)</span>
+                        </label>
+                    </p>
+                    
+                </div>
+                <button class="btn-large waves-effect waves-light blue darken-3" type="submit">Update Preferences</button>
+                
+            </form>  
+            
+            <div class="center-align logged-in" id="updated"/>
+            
+        </div>
+        
+    </div>
+    
     <!-- Firebase App is always required and must be first -->
     <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-app.js"></script>
     <!-- Add additional services that you want to use -->

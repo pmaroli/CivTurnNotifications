@@ -68,9 +68,27 @@ firebase.auth().onAuthStateChanged(function (user) {
         setupUI(user);
         // Get the user data and update the form with the user's preferences
         db.collection('users').doc(user.uid).get().then( (doc) => {
-            updateForm( doc.data() );
+            updateForm( doc.data(), user.email );
         });
     } else {
         setupUI(user);
     }
 });
+
+// Delete the logged in user
+const deleteUser = document.querySelectorAll('#deleteUser');
+deleteUser.forEach(item => {
+    item.addEventListener('click', (e) => {
+        e.preventDefault(); //Prevent page from reloading
+
+        db.collection("users").doc(firebase.auth().currentUser.uid).delete().then(function () {
+
+            firebase.auth().currentUser.delete().then(function () {
+                var modal = document.querySelector('#deleteAccountModal');
+                M.Modal.getInstance(modal).close();
+            }).catch( error => { logDeleteError(error) } )
+            
+        }).catch( error => { console.error(error.message) } )
+
+    });
+})

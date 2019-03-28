@@ -11,6 +11,13 @@ const confirmUpdate = () => {
     }, 3000);
 }
 
+const logDeleteError = (error) => {
+    const deleteError = document.querySelector('#deleteError');
+    deleteError.innerHTML = error.message;
+    setTimeout(() => {
+        deleteError.innerHTML = ''
+    }, 10000);
+}
 
 const loggedInLinks = document.querySelectorAll('.logged-in');
 const loggedOutLinks = document.querySelectorAll('.logged-out');
@@ -30,12 +37,11 @@ const setupUI = (user) => {
     }
 }
 
+const updateForm = ( data, email ) => {
 
-const updateForm = ( data ) => {
+    preferenceForm['email'].value = email;
 
-    preferenceForm['email'].value = data.email;
-
-    if( data.playerName ) { // New users have not yet assigned a playerName, so their data will be empty until they submit information
+    if( data ) { // New users have not yet assigned data, so their data will be empty until they submit information
         preferenceForm['playerName'].value = data.playerName;
         preferenceForm['discordID'].value = data.discordID;
         //preferenceForm['phone'].value = data.phoneNumber;
